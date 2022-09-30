@@ -1,4 +1,4 @@
-package goa.systems.eventman;
+package goa.systems.eventman.model;
 
 import java.util.GregorianCalendar;
 
