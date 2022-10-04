@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
 import goa.systems.commons.io.InputOutput;
@@ -34,14 +35,20 @@ public class Migrator {
 		String dbversion = null;
 
 		try {
-			dbversion = jdbctemplate
-					.query("SELECT `value` FROM `preferences` WHERE `key` = 'dbversion'", new RowMapper<String>() {
+			dbversion = jdbctemplate.query("SELECT `value` FROM `preferences` WHERE `key` = 'dbversion'",
+					new ResultSetExtractor<String>() {
+
 						@Override
-						public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-							return rs.getString("value");
+						public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+							if (rs != null && rs.next()) {
+								return rs.getString(1);
+							}
+							return "0.0.0";
 						}
-					}).get(0);
-		} catch (BadSqlGrammarException e) {
+					});
+		} catch (
+
+		BadSqlGrammarException e) {
 			logger.error("Can not determine database version.", e);
 			dbversion = "0.0.0";
 		}
