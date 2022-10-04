@@ -29,7 +29,7 @@ class MigratorTests {
 	void testDatabaseVersion() {
 		assertDoesNotThrow(() -> {
 			String version = migrator.getDatabaseVersion();
-			assertEquals("0.0.0", version);
+			assertEquals("0.0.1", version);
 		});
 	}
 }
