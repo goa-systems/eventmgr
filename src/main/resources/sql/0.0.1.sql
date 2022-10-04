@@ -33,9 +33,9 @@ CREATE TABLE `events_have_genres` (
 	`genre_id` bigint unsigned NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY `event_fk` (`event_id`),
-	CONSTRAINT `event_fk` FOREIGN KEY (`event_id`) REFERENCES `genres` (`id`),
+	CONSTRAINT `event_fk` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
 	KEY `genre_fk` (`genre_id`),
-	CONSTRAINT `genre_fk` FOREIGN KEY (`genre_id`) REFERENCES `events` (`id`)
+	CONSTRAINT `genre_fk` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 --
 INSERT INTO `preferences` (`id`, `key`, `value`) VALUES (1, 'dbversion', '0.0.1');
