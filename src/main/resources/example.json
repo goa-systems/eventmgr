@@ -1,0 +1,56 @@
+[
+	{
+		"location": {
+			"name": "Grüner Pavillon"
+		},
+		"start": "2022-10-01T22:00:00.000+0200",
+		"end": "2022-10-02T03:00:00.000+0200",
+		"styles": [
+			"rock",
+			"punk",
+			"queerbeet",
+			"80ties",
+			"90ties",
+			"hiphop"
+		]
+	},
+	{
+		"location": {
+			"name": "7er Bar"
+		},
+		"start": "2022-10-21T20:00:00.000+0200",
+		"end": "2022-10-22T02:00:00.000+0200",
+		"styles": [
+			"rock",
+			"punk",
+			"metal",
+			"queerbeet"
+		]
+	},
+	{
+		"location": {
+			"name": "7er Bar"
+		},
+		"start": "2022-11-18T20:00:00.000+0200",
+		"end": "2022-11-19T02:00:00.000+0200",
+		"styles": [
+			"rock",
+			"punk",
+			"metal",
+			"queerbeet"
+		]
+	},
+	{
+		"location": {
+			"name": "7er Bar"
+		},
+		"start": "2022-12-16T20:00:00.000+0200",
+		"end": "2022-12-17T02:00:00.000+0200",
+		"styles": [
+			"rock",
+			"punk",
+			"metal",
+			"queerbeet"
+		]
+	}
+]

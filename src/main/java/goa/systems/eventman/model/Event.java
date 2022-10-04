@@ -1,12 +1,14 @@
 package goa.systems.eventman.model;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Event {
 
 	private Location location;
 	private GregorianCalendar start;
 	private GregorianCalendar end;
+	private List<Genre> styles;
 
 	public Location getLocation() {
 		return location;
@@ -30,5 +32,13 @@ public class Event {
 
 	public void setEnd(GregorianCalendar end) {
 		this.end = end;
+	}
+
+	public List<Genre> getStyles() {
+		return styles;
+	}
+
+	public void setStyles(List<Genre> styles) {
+		this.styles = styles;
 	}
 }
