@@ -1,14 +1,24 @@
 package goa.systems.eventman.model;
 
+import java.math.BigInteger;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Event {
 
+	private BigInteger id;
 	private Location location;
 	private GregorianCalendar start;
 	private GregorianCalendar end;
-	private List<Genre> styles;
+	private List<Genre> genres;
+
+	public BigInteger getId() {
+		return id;
+	}
+
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
 
 	public Location getLocation() {
 		return location;
@@ -34,11 +44,11 @@ public class Event {
 		this.end = end;
 	}
 
-	public List<Genre> getStyles() {
-		return styles;
+	public List<Genre> getGenres() {
+		return genres;
 	}
 
-	public void setStyles(List<Genre> styles) {
-		this.styles = styles;
+	public void setGenres(List<Genre> styles) {
+		this.genres = styles;
 	}
 }
