@@ -61,10 +61,13 @@ public class EventmgrController {
 
 			return preparedStatement;
 		}, generatedKeyHolder);
-		try {
-			return BigInteger.valueOf(generatedKeyHolder.getKey().longValue());
-		} catch (NullPointerException ex) {
-			logger.error("Error retrieving generated key.", ex);
+
+		Number key = generatedKeyHolder.getKey();
+
+		if (key != null) {
+			return BigInteger.valueOf(key.longValue());
+		} else {
+			logger.error("Generated key could not be retrieved.");
 			return BigInteger.valueOf(-1);
 		}
 	}
