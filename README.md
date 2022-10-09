@@ -9,3 +9,7 @@ Please use the SQL scripts in the folder `src/main/resources/sql` to setup the d
 |Version|Description|
 |-|-|
 |0.0.1|Basic functionality for API and database.<ul><li>Create events</li><li>Modify events</li><li>Delete events</li><li>Initialize database</li></ul>|
+
+## Architecture
+
+![Architecture diagram](docs/img/1.png)
