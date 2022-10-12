@@ -15,10 +15,6 @@ public class Location {
 		this.id = id;
 	}
 
-	public Location(String name) {
-		this.name = name;
-	}
-
 	public String getName() {
 		return name;
 	}
