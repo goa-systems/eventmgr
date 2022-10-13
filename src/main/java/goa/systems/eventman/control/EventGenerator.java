@@ -5,8 +5,6 @@ import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.ZoneId;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,10 @@ import org.springframework.stereotype.Component;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
+import goa.systems.commons.io.InputOutput;
 import goa.systems.eventman.model.Event;
 import goa.systems.eventman.model.Genre;
-import goa.systems.eventman.model.Location;
+import goa.systems.eventman.stuff.EventResultSetExtractor;
 import goa.systems.eventman.stuff.Tooling;
 
 @Component
@@ -39,25 +38,9 @@ public class EventGenerator {
 	}
 
 	public List<Event> getEvents() {
-		String sql = "SELECT `events`.`id`, `events`.`location_id`, `events`.`start`, `events`.`end`, `locations`.`id`, `locations`.`name` FROM `events` LEFT OUTER JOIN `locations` ON `events`.`location_id` = `locations`.`id`";
-		return jdbcTemplate.query(sql, new RowMapper<Event>() {
-
-			@Override
-			public Event mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Event e = new Event();
-				e.setId(BigInteger.valueOf(rs.getLong(1)));
-				Location l = new Location();
-				l.setId(BigInteger.valueOf(rs.getLong("locations.id")));
-				l.setName(rs.getString("locations.name"));
-				e.setLocation(l);
-				e.setStart(GregorianCalendar
-						.from(rs.getTimestamp("events.start").toLocalDateTime().atZone(ZoneId.systemDefault())));
-				e.setEnd(GregorianCalendar
-						.from(rs.getTimestamp("events.end").toLocalDateTime().atZone(ZoneId.systemDefault())));
-				e.setGenres(getGenres(e));
-				return e;
-			}
-		});
+		return jdbcTemplate.query(
+				InputOutput.readString(EventGenerator.class.getResourceAsStream("/sql/getevents.sql")),
+				new EventResultSetExtractor());
 	}
 
 	List<Genre> getGenres(Event e) {
