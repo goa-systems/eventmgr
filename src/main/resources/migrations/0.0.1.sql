@@ -41,6 +41,7 @@ CREATE TABLE `events_have_genres` (
 	`id` bigint unsigned AUTO_INCREMENT NOT NULL,
 	`event_id` bigint unsigned NOT NULL,
 	`genre_id` bigint unsigned NOT NULL,
+	`options` int unsigned NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY `event_fk` (`event_id`),
 	CONSTRAINT `event_fk` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
