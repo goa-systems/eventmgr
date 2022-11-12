@@ -9,12 +9,14 @@ import java.util.GregorianCalendar;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import goa.systems.eventman.control.LogicLib;
 import goa.systems.eventman.exceptions.InconsistentEventException;
 import goa.systems.eventman.model.Event;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class LogicLibTests {
 
 	@Autowired
