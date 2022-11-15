@@ -34,14 +34,12 @@ public class EventmgrApplication {
 	public void init() {
 
 		/* If it is a unit test, drop the database first. */
-		if (List.of(this.environment.getActiveProfiles()).contains("test")) {
-			mc.drop();
-		}
-
-		try {
-			mc.migrate();
-		} catch (IOException | DataUpdateException e) {
-			logger.error("Error in database migration.", e);
+		if (!List.of(this.environment.getActiveProfiles()).contains("test")) {
+			try {
+				mc.migrate();
+			} catch (IOException | DataUpdateException e) {
+				logger.error("Error in database migration.", e);
+			}
 		}
 	}
 }

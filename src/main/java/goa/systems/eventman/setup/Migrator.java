@@ -1,19 +1,16 @@
 package goa.systems.eventman.setup;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -39,14 +36,16 @@ public class Migrator {
 	 * @return List of SQL commands as strings.
 	 */
 	public List<String> getSqlCommands(String version) {
+		return getSqlCommands(Migrator.class.getResourceAsStream(String.format("/migrations/%s.sql", version)));
+	}
+
+	public List<String> getSqlCommands(InputStream is) {
 		List<String> l = new ArrayList<>();
-		String sqlscript = InputOutput
-				.readString(Migrator.class.getResourceAsStream(String.format("/migrations/%s.sql", version)));
+		String sqlscript = InputOutput.readString(is);
 		String[] sqlcommands = sqlscript.split("\n--\n");
 		for (String command : sqlcommands) {
 			l.add(command.trim());
 		}
-
 		return l;
 	}
 
@@ -120,7 +119,8 @@ public class Migrator {
 				}
 			});
 		} catch (DataAccessException e) {
-			logger.error("Can not get current version from database. Assuming empty database.", e);
+			logger.error(
+					"Can not get current version from database. Assuming empty database. Exception text is hidden.");
 			return "0.0.0";
 		}
 	}
@@ -213,27 +213,5 @@ public class Migrator {
 				return rs.getString(1);
 			}
 		});
-	}
-
-	public void drop() {
-
-		String database = jdbcTemplate.query("SELECT DATABASE()", new ResultSetExtractor<String>() {
-			@Override
-			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
-				return rs != null && rs.next() ? rs.getString(1) : "";
-			}
-		});
-		Map<String, String> params = new HashMap<>();
-		params.put("db", database);
-		jdbcTemplate.execute("DROP DATABASE :db", params, new PreparedStatementCallback<String>() {
-
-			@Override
-			public String doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
-				ps.execute();
-				return null;
-			}
-		});
-
-		logger.info("Database {} dropped successfully.", database);
 	}
 }
