@@ -6,7 +6,8 @@ plugins {
 
 group = 'goa.systems'
 version = '0.0.1'
-sourceCompatibility = '18'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 repositories {
 	mavenCentral()
