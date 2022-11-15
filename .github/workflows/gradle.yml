@@ -15,7 +15,15 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v3
+    
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Command Output
+      uses: mathiasvr/command-output@v1.1.0
+      with:
+        run: 'chmod u+x gradlew'
+      
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
